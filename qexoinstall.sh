@@ -12,7 +12,7 @@ echo '| '"'"'_ ` _ \| |/ _` |/ _ \ \ /\ / / '"'"'_ ` _ \| | '"'"'_ \| __|'
 echo '| | | | | | | (_| | (_) \ V  V /| | | | | | | | | | |_ '
 echo '|_| |_| |_|_|\__,_|\___/ \_/\_/ |_| |_| |_|_|_| |_|\__|'
 echo '                                                       '
-echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2.6.3.1，如果此脚本安装出现错误请进行手动部署\033[0m"
+echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2.6.3.2，如果此脚本安装出现错误请进行手动部署\033[0m"
 sleep 5s
 
 echoinfo(){
@@ -26,12 +26,18 @@ echoinfo(){
 }
 
 checkport(){
-    portwillbe="8000"
+    echo "检测8000端口是否被占用"
     portuse=`/usr/sbin/lsof -i :8000|grep -v "PID" | awk '{print $2}'`
-    if [ "$portuse" != "" ];then
-        echo -e "\033[31m检测到8000端口已被占用，将Qexo映射端口修改到18000\033[0m"
-        portwillbe="18000"
-    fi
+    if [ $? -ne 0 ]; then
+        if [ "$portuse" != "" ];then
+            echo -e "\033[31m检测到8000端口已被占用，将Qexo映射端口修改到18000\033[0m"
+            portwillbe="18000"
+        else
+            echo "检测到8000端口未被占用"
+            portwillbe="8000"
+        fi
+    else
+        echo -e "\n\033[31m占用情况检测失败，请确保8000端口未被其他应用占用\033[0m"
 }
 
 basicinfo(){
@@ -61,9 +67,9 @@ qexoinfo(){
         if [ -z "$qexofile" ];then
             qexofile="/data/qexo"
         fi
-    checkport
-    read -p " 请输入Qexo容器的映射端口，回车默认映射到宿主机$portwillbe端口 " qexoport
+    read -p " 请输入Qexo容器的映射端口，回车默认映射到宿主机 8000 端口，如果自定义端口请确保你填的端口没有被占用 " qexoport
         if [ -z "$qexoport" ];then
+            checkport
             qexoport=$portwillbe
         fi
     echo -e "\033[33m配置完成了，休息10秒钟\033[0m"
