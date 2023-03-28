@@ -12,7 +12,7 @@ echo '| '"'"'_ ` _ \| |/ _` |/ _ \ \ /\ / / '"'"'_ ` _ \| | '"'"'_ \| __|'
 echo '| | | | | | | (_| | (_) \ V  V /| | | | | | | | | | |_ '
 echo '|_| |_| |_|_|\__,_|\___/ \_/\_/ |_| |_| |_|_|_| |_|\__|'
 echo '                                                       '
-echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2.6.3.2，如果此脚本安装出现错误请进行手动部署\033[0m"
+echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2.6.3.3，如果此脚本安装出现错误请进行手动部署\033[0m"
 sleep 5s
 
 echoinfo(){
@@ -27,7 +27,9 @@ echoinfo(){
 
 checkport(){
     echo "检测8000端口是否被占用"
+    sleep 1s
     portuse=`/usr/sbin/lsof -i :8000|grep -v "PID" | awk '{print $2}'`
+    sleep 1s
     if [ $? -ne 0 ]; then
         if [ "$portuse" != "" ];then
             echo -e "\033[31m检测到8000端口已被占用，将Qexo映射端口修改到18000\033[0m"
