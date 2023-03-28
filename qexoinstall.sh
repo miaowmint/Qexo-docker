@@ -38,6 +38,7 @@ checkport(){
         fi
     else
         echo -e "\n\033[31m占用情况检测失败，请确保8000端口未被其他应用占用\033[0m"
+    fi
 }
 
 basicinfo(){
