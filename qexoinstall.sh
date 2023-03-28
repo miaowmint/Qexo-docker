@@ -117,7 +117,7 @@ downloadandchangefile(){
     echo -e "\033[33m接下来开始修改配置文件\033[0m"
     sleep 1s
     git clone https://ghproxy.com/https://github.com/Qexo/Qexo.git $qexofile
-    cd $qexofile && wget https://raw.githubusercontent.com/miaowmint/Qexo-docker/main/configs.py && mkdir -p $qexofile/db && cd db && wget https://raw.githubusercontent.com/miaowmint/Qexo-docker/main/db.sqlite3
+    cd $qexofile && wget https://ghproxy.com/https://raw.githubusercontent.com/miaowmint/Qexo-docker/main/configs.py && mkdir -p $qexofile/db && cd db && wget https://ghproxy.com/https://raw.githubusercontent.com/miaowmint/Qexo-docker/main/db.sqlite3
     serverip=`curl -L www.loliapi.com/qexoip/`
     echo -e "获取到服务器的IP为\033[32m$serverip\033[0m"
     sed -i "s|127.0.0.1|$serverip|g" $qexofile/configs.py
