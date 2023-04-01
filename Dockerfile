@@ -4,7 +4,13 @@ EXPOSE 8000
 
 RUN usermod -s /bin/bash root
 
-RUN mkdir -p /usr/local/qexo && chmod -R 755 /usr/local/qexo && mkdir -p /usr/local/hexo && chmod -R 755 /usr/local/hexo && mkdir -p /usr/local/hugo && chmod -R 755 /usr/local/hugo
+RUN mkdir -p /usr/local/qexo && chmod -R 755 /usr/local/qexo && mkdir -p /usr/local/hexo && chmod -R 755 /usr/local/hexo && mkdir -p /usr/local/hugo && chmod -R 755 /usr/local/hugo && mkdir -p /www/site && chmod -R 755 /www/site && mkdir -p /www/log && chmod -R 755 /www/log
+
+RUN apt update && apt install -y sudo && sudo apt update && sudo apt install -y cron && sudo apt install -y nginx
+
+WORKDIR /root
+
+RUN curl https://get.acme.sh | sh -s && ln -sf /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
 
 WORKDIR /usr/local/hexo
 
@@ -24,4 +30,4 @@ RUN wget https://raw.githubusercontent.com/Qexo/Qexo/master/requirements.txt
 
 RUN pip install -r requirements.txt
 
-CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload
+CMD bash /usr/local/qexo/run.sh
