@@ -12,7 +12,7 @@ echo '| '"'"'_ ` _ \| |/ _` |/ _ \ \ /\ / / '"'"'_ ` _ \| | '"'"'_ \| __|'
 echo '| | | | | | | (_| | (_) \ V  V /| | | | | | | | | | |_ '
 echo '|_| |_| |_|_|\__,_|\___/ \_/\_/ |_| |_| |_|_|_| |_|\__|'
 echo '                                                       '
-echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2.6.4.1(04.02)，如果此脚本安装出现错误请进行手动部署\033[0m"
+echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2.6.4.2(04.02)，如果此脚本安装出现错误请进行手动部署\033[0m"
 sleep 5s
 
 echoinfo(){
@@ -63,17 +63,16 @@ basicinfo(){
         if [ -z "$hexofile" ];then
             hexofile="/www/site"
         fi 
-    read -p " 接下来的配置项非必须项，是否跳过它们？回车默认跳过以一键安装，输入任意字符串以继续配置" oneclick
-        if [ "$useproxy" == "yes" ];then
-            read -p " 请输入你的hexo使用的域名 " hexodomain
-                if [ -z "$hexodomain" ];then
-                    hexodomain="yourhexo.com"
-                fi             
-            read -p " 请输入你的邮箱（用于申请ssl证书） " acmemail
-                if [ -z "$acmemail" ];then
-                    acmemail="example@qexo.com"
-                fi 
-        fi
+    if [ "$useproxy" == "yes" ];then
+        read -p " 请输入你的hexo使用的域名 " hexodomain
+            if [ -z "$hexodomain" ];then
+                hexodomain="yourhexo.com"
+            fi 
+        read -p " 请输入你的邮箱（用于申请ssl证书） " acmemail
+            if [ -z "$acmemail" ];then
+                acmemail="example@qexo.com"
+            fi 
+    fi
     otherinfo
 }
 
