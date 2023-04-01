@@ -1,6 +1,6 @@
 import pymysql,os
 
-DOMAINS = ["127.0.0.1", "yoursite.com"]
+DOMAINS = ["127.0.0.1", "yourqexo.com"]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
