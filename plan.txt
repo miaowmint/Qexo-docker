@@ -1,2 +1,2 @@
-1.docker镜像自带反代
-2.docker镜像能够直接访问生成的public
+1.能够从头新建本地hexo
+2.
