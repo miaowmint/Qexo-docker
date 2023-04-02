@@ -12,7 +12,7 @@ echo '| '"'"'_ ` _ \| |/ _` |/ _ \ \ /\ / / '"'"'_ ` _ \| | '"'"'_ \| __|'
 echo '| | | | | | | (_| | (_) \ V  V /| | | | | | | | | | |_ '
 echo '|_| |_| |_|_|\__,_|\___/ \_/\_/ |_| |_| |_|_|_| |_|\__|'
 echo '                                                       '
-echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2.6.4.3(04.02)，如果此脚本安装出现错误请进行手动部署\033[0m"
+echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2.6.4.4(04.02)，如果此脚本安装出现错误请进行手动部署\033[0m"
 sleep 5s
 
 echoinfo(){
@@ -78,10 +78,12 @@ basicinfo(){
 }
 
 otherinfo(){
-    checkport
-    qexoname="qexo"
-    qexofile="/data/qexo"
-    qexoport=$portwillbe
+    if [ "$useproxy" != "yes" ];then
+        checkport
+        qexoport=$portwillbe           #容器内的qexo映射到宿主机的端口，如使用镜像内置的nginx反代，则此项无效
+    fi
+    qexoname="qexo"                    #qexo容器的名称
+    qexofile="/data/qexo"              #后续下载并修改所需文件时将运行qexo所需的文件放置于宿主机的哪个目录
 }
 
 chickandinstall(){
@@ -153,10 +155,16 @@ runcontainer(){
 echoendinfo(){
     echo -e "\n\033[34m====================================================================================================\033[0m"
     echo -e "\n\033[33m恭喜你，安装完成了！\033[0m"
-    echo -e "\033[33m你现在可以访问 http://$serverip:$qexoport/ 进行初始化并愉快的使用Qexo了（记得在安全组/防火墙放通$qexoport端口）\033[0m"
+    if [ "$useproxy" != "yes" ];then
+        sleep 5s
+        echo -e "\033[33m你现在可以访问 http://$serverip:$qexoport/ 进行初始化并愉快的使用Qexo了（记得在安全组/防火墙放通$qexoport端口）\033[0m"
+        if [ "$qexodomain" != "yourqexo.com" ];then
+            echo -e "\033[33m如果你已经设置域名反代到 http://127.0.0.1:$qexoport/ ，那么你就可以访问 http://$qexodomain/ 进行初始化并愉快的使用Qexo了\033[0m"
+        fi
+    fi
     if [ "$qexodomain" != "yourqexo.com" ];then
         sleep 5s
-        echo -e "\033[33m如果你使用了镜像内置的nginx反代或已经自行设置域名反代到 http://127.0.0.1:$qexoport/ ，那么你就可以访问 http://$qexodomain/ 进行初始化并愉快的使用Qexo了\033[0m"
+        echo -e "\033[33m你现在可以访问 http://$qexodomain/ 进行初始化并愉快的使用Qexo了\033[0m"
     fi
     if [ "$hexodomain" != "yourhexo.com" ];then
         sleep 5s
