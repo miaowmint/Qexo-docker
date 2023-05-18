@@ -12,7 +12,7 @@ echo '| '"'"'_ ` _ \| |/ _` |/ _ \ \ /\ / / '"'"'_ ` _ \| | '"'"'_ \| __|'
 echo '| | | | | | | (_| | (_) \ V  V /| | | | | | | | | | |_ '
 echo '|_| |_| |_|_|\__,_|\___/ \_/\_/ |_| |_| |_|_|_| |_|\__|'
 echo '                                                       '
-echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2.6.4.4(04.02)，如果此脚本安装出现错误请进行手动部署\033[0m"
+echo -e "\033[34m欢迎使用Qexo-docker一键安装脚本v2023.05.18.1，如果此脚本安装出现错误请进行手动部署\033[0m"
 sleep 5s
 
 echoinfo(){
@@ -174,6 +174,7 @@ echoendinfo(){
     echo -e "\n\033[34m====================================================================================================\033[0m"
     sleep 2s
     echo -e "\n\033[33m你可以运行 docker logs $qexoname 以查看Qexo容器的运行日志\033[0m"
+    echo -e "\n\033[31m如果容器启动失败，日志中出现类似于 no moudle named "XXX" 的错误，大概率是因为 Qexo 作者更新新版本引用了新的模块；你可以自己通过 Dockerfile 构建新的镜像，或者是给 loli#iloli.love ( # 换成 @ ) 发送邮件告知我，我会尽快构建一个新的镜像并上传\033[0m"
     echo -e "\n\033[33m如果Qexo使用有问题，请在此提交issue: https://github.com/Qexo/Qexo/issues/new/choose/ \033[0m"
     echo -e "\n\033[33m如果本一键脚本使用有问题，请在此提交issue: https://github.com/miaowmint/Qexo-docker/issues/new/ \033[0m"
 }
